@@ -2,6 +2,9 @@
 
 import telebot
 import constants
+import psutil
+import humanize
+
 
 bot = telebot.TeleBot(constants.token)
 
@@ -38,6 +41,14 @@ def handle_text(message):
     elif message.chat.type == "group" or "supergroup":
         answer = "Group ID: <b>" + str(message.chat.id) + "</b>"
         bot.send_message(message.chat.id, answer, parse_mode="HTML")
+
+@bot.message_handler(commands=['status'])
+def handle_text(message):
+    answer = '<b>I\'m alive!</b>\n<pre>CPU: {}% ({} threads)\nRAM: {}% ({} total)</pre>'.format(
+        psutil.cpu_percent(), psutil.cpu_count(),
+        psutil.virtual_memory().percent,
+        humanize.naturalsize(psutil.virtual_memory().total, binary=True, gnu=True))
+    bot.send_message(message.chat.id, answer, parse_mode="HTML")
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):

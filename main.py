@@ -18,19 +18,23 @@ def log(message, answer):
                                                                  message.text))
     print(answer)
 
+# Less- or greater-than sign replacement function
+
+def replace_tag(value):
+    return value.replace('<', "&lt;").replace('>', "&gt;")
 
 @bot.message_handler(commands=['install'])
 def handle_text(message):
-    answer = """Type 
-    /install <package> <args>"""
-    bot.send_message(message.chat.id, answer)
+    answer = "/install <b>" + replace_tag("<package> <args>") + "</b>"
+    answer += "\n\n<code>Packages:\n linux middleware release\n linux middleware beta</code>"
+    bot.send_message(message.chat.id, answer, parse_mode="HTML")
     log(message, answer)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     answer = "Hello, I'm your personal assistant. How can I help you?"
     if message.text == "Hello":
-        bot.send_message(message.chat.id, answer)
-        log(message,answer)
+        bot.send_message(message.chat.id, answer, parse_mode="HTML")
+        log(message, answer)
 
 bot.polling(none_stop=True, interval=0)

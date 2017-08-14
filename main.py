@@ -30,6 +30,15 @@ def handle_text(message):
     bot.send_message(message.chat.id, answer, parse_mode="HTML")
     log(message, answer)
 
+@bot.message_handler(commands=['id'])
+def handle_text(message):
+    if message.chat.type == "private":
+        answer = "Your chat ID: <b>" + str(message.chat.id) + "</b>"
+        bot.send_message(message.chat.id, answer, parse_mode="HTML")
+    elif message.chat.type == "group" or "supergroup":
+        answer = "Group ID: <b>" + str(message.chat.id) + "</b>"
+        bot.send_message(message.chat.id, answer, parse_mode="HTML")
+
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     answer = "Hello, I'm your personal assistant. How can I help you?"

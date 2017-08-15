@@ -38,9 +38,11 @@ def handle_text(message):
     if message.chat.type == "private":
         answer = "Your chat ID: <b>" + str(message.chat.id) + "</b>"
         bot.send_message(message.chat.id, answer, parse_mode="HTML")
+        log(message, answer)
     elif message.chat.type == "group" or "supergroup":
         answer = "Group ID: <b>" + str(message.chat.id) + "</b>"
         bot.send_message(message.chat.id, answer, parse_mode="HTML")
+        log(message, answer)
 
 @bot.message_handler(commands=['status'])
 def handle_text(message):
@@ -49,6 +51,7 @@ def handle_text(message):
         psutil.virtual_memory().percent,
         humanize.naturalsize(psutil.virtual_memory().total, binary=True, gnu=True))
     bot.send_message(message.chat.id, answer, parse_mode="HTML")
+    log(message, answer)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):

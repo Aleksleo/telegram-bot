@@ -2,6 +2,7 @@
 
 import telebot
 import constants
+import messages
 import psutil
 import humanize
 
@@ -29,25 +30,24 @@ def main():
 
     @bot.message_handler(commands=['install'])
     def handle_text(message):
-        answer = "/install <b>" + replace_tag("<package> <args>") + "</b>"
-        answer += "\n\n<code>Packages:\n linux middleware release\n linux middleware beta</code>"
+        answer = messages.text_messages['install'].format(replace_tag("<package> <args>"))
         bot.send_message(message.chat.id, answer, parse_mode="HTML")
         log(message, answer)
 
     @bot.message_handler(commands=['id'])
     def handle_text(message):
         if message.chat.type == "private":
-            answer = "Your chat ID: <b>" + str(message.chat.id) + "</b>"
+            answer = messages.text_messages['chatid'].format(str(message.chat.id))
             bot.send_message(message.chat.id, answer, parse_mode="HTML")
             log(message, answer)
         elif message.chat.type == "group" or "supergroup":
-            answer = "Group ID: <b>" + str(message.chat.id) + "</b>"
+            answer = messages.text_messages['groupid'].format(str(message.chat.id))
             bot.send_message(message.chat.id, answer, parse_mode="HTML")
             log(message, answer)
 
     @bot.message_handler(commands=['status'])
     def handle_text(message):
-        answer = '<b>I\'m alive!</b>\n<pre>CPU: {}% ({} threads)\nRAM: {}% ({} total)</pre>'.format(
+        answer = messages.text_messages['status'].format(
             psutil.cpu_percent(), psutil.cpu_count(),
             psutil.virtual_memory().percent,
             humanize.naturalsize(psutil.virtual_memory().total, binary=True, gnu=True))

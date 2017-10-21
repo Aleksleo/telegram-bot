@@ -1,15 +1,15 @@
 # Telegram Bot Main file v0.2, Leonidov Aleksey
 
 import telebot
-import constants
 import messages
 import psutil
 import humanize
+import os
 
 
 def main():
 
-    bot = telebot.TeleBot(constants.token)
+    bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 
     # Logging into console
     print(bot.get_me())
@@ -45,7 +45,6 @@ def main():
             answer = messages.text_messages['install'].format(replace_tag("<package> <args>"))
         bot.send_message(message.chat.id, answer, parse_mode="HTML")
         log(message, answer)
-
 
     @bot.message_handler(commands=['id'])
     def handle_text(message):

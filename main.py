@@ -68,7 +68,7 @@ def main():
 
     @bot.message_handler(content_types=['text'])
     def handle_text(message):
-        answer = "Hello, {} {}. I'm your personal assistant. How can I help you?".format(message.from_user.first_name,
+        answer = "Hello, {} {}. How can I help you?".format(message.from_user.first_name,
                                                                                          message.from_user.last_name)
         if message.text == "Hello":
             bot.send_message(message.chat.id, answer, parse_mode="HTML")

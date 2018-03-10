@@ -6,7 +6,7 @@ from bot.updater import Updater
 
 def main():
 
-    updater = Updater(os.environ['BOT_TOKEN'])
+    updater = Updater
 
 if __name__ == "__main__":
     main()

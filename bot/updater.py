@@ -1,4 +1,4 @@
-import messages
+from bot import messages
 import psutil
 import humanize
 import os

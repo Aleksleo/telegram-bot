@@ -74,7 +74,7 @@ def main():
             bot.send_message(message.chat.id, answer, parse_mode="HTML")
             log(message, answer)
 
-    bot.polling(none_stop=True, interval=0)
+    bot.polling(none_stop=True, interval=0, timeout=86400)
 
 if __name__ == "__main__":
     main()

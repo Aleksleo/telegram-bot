@@ -69,12 +69,13 @@ def main():
     @bot.message_handler(content_types=['text'])
     def handle_text(message):
         answer = "Hello, {} {}. How can I help you?".format(message.from_user.first_name,
-                                                                                         message.from_user.last_name)
+                                                            message.from_user.last_name)
         if message.text == "Hello":
             bot.send_message(message.chat.id, answer, parse_mode="HTML")
             log(message, answer)
 
     bot.polling(none_stop=True, interval=0, timeout=86400)
+
 
 if __name__ == "__main__":
     main()
